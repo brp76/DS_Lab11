@@ -14,7 +14,8 @@ public class SimulationEventQueue implements SimulationEventQueueInterface{
 	
 	public void add(SimulationEvent newEntry) {
 		int index = queue.size();
-		for (int i = queue.size(); i > 0; i --) {
+		//System.out.println("Size: "+queue.size());
+		for (int i = queue.size()-1; i >= 0; i --) {
 			if (newEntry.getTime() <= queue.get(i).getTime()) {
 				index = i;
 			}

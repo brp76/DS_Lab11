@@ -27,7 +27,7 @@ public class BankActionThread extends ActionThread
     
     public String getApplicationTitle()
     {
-        return "Bank Simulation (ver0.1)";
+        return "Bank Simulation";
     }    
     
 
@@ -82,8 +82,8 @@ public class BankActionThread extends ActionThread
     	SimulationEvent removed;
         while (!theEvents.isEmpty() && theEvents.getCurrentTime() < stopSimulationAt) {
         	removed = theEvents.remove();
-        	lastEventReport = removed.getPostActionReport();
         	removed.process();
+        	lastEventReport = removed.getPostActionReport();
         	if (!theEvents.isEmpty()) {
         		SimulationEvent next = theEvents.peek();
                 if(next != null) {

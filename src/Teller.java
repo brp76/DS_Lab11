@@ -39,7 +39,15 @@ public class Teller
         reportServices = toReportTo;
         
         //ADD CODE HERE TO GENERATE THE INITIAL EVENT
-
+        int timeToHelp = sharedRandomGenerator.nextInt(maxForHelp);
+        SimulationEvent nextCheck = new CheckForCustomerEvent(
+        				theEventQueue.getCurrentTime()+timeToHelp,
+        				"Help the first customer");
+        //theEventQueue.remove();
+        //if (!theEventQueue.isEmpty()) {
+        	theEventQueue.add(nextCheck);
+        //}
+        
         
 
         } // end constructor
@@ -71,8 +79,20 @@ public class Teller
     	synchronized
     	public void process()
     	{
-    	   // ADD CODE HERE FOR PROCESSING A CUSTOMER
-   	   
+    		Customer c = theLine.dequeue();
+    		if (c == null) {
+    			serving = null;
+    			postActionReport = "Checked for customer, line was empty";
+    		} else {
+    			serve(c);
+    			postActionReport = "Checked for customer, helped customer";
+    		}	
+    		
+    		int timeToNext = sharedRandomGenerator.nextInt(maxForHelp);
+            SimulationEvent nextCheck = new CheckForCustomerEvent(
+            				theEventQueue.getCurrentTime()+timeToNext,
+            				"Help the next customer");
+            theEventQueue.add(nextCheck);
     	}
 
     }  // end of GenerateCustomerEvent    
