@@ -27,7 +27,7 @@ public class BankActionThread extends ActionThread
     
     public String getApplicationTitle()
     {
-        return "Bank Simulation (Skeleton)";
+        return "Bank Simulation (ver0.1)";
     }    
     
 
@@ -79,7 +79,24 @@ public class BankActionThread extends ActionThread
 
     public void executeApplication()
     {
-        //ADD CODE HERE TO RUN THE EVENT SIMULATION
+    	SimulationEvent removed;
+        while (!theEvents.isEmpty() && theEvents.getCurrentTime() < stopSimulationAt) {
+        	removed = theEvents.remove();
+        	lastEventReport = removed.getPostActionReport();
+        	removed.process();
+        	if (!theEvents.isEmpty()) {
+        		SimulationEvent next = theEvents.peek();
+                if(next != null) {
+                    nextEventAction = next.getDescription();
+                } else {
+                    nextEventAction = "No events to process";
+                }
+                
+        	}
+        	myReport.updateTime(theEvents.getCurrentTime());
+        	animationPause();
+        }
+        
     }
     
 

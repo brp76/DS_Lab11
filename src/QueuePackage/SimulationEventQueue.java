@@ -12,7 +12,6 @@ public class SimulationEventQueue implements SimulationEventQueueInterface{
 		queue = new Vector<SimulationEvent>();
 	}
 	
-	@Override
 	public void add(SimulationEvent newEntry) {
 		int index = queue.size();
 		for (int i = queue.size(); i > 0; i --) {
